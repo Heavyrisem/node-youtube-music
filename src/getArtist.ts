@@ -15,7 +15,7 @@ export async function getArtist(
     'https://music.youtube.com/youtubei/v1/browse?key=AIzaSyC9XL3ZjWddXya6X74dJoCTL-WEYFDNX30',
     {
       json: {
-        ...context.body,
+        ...context.body(options?.lang),
         browseId: artistId,
       },
       headers: {

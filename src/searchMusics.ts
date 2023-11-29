@@ -28,6 +28,7 @@ export const parseSearchMusicsBody = (body: {
 export async function searchMusics(
   query: string,
   options?: {
+    lang?: string;
     headers?: Record<string, string>;
   }
 ): Promise<MusicVideo[]> {
@@ -35,7 +36,7 @@ export async function searchMusics(
     'https://music.youtube.com/youtubei/v1/search?alt=json&key=AIzaSyC9XL3ZjWddXya6X74dJoCTL-WEYFDNX30',
     {
       json: {
-        ...context.body,
+        ...context.body(options?.lang),
         params: 'EgWKAQIIAWoKEAoQCRADEAQQBQ%3D%3D',
         query,
       },

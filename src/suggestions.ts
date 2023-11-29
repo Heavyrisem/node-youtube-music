@@ -44,6 +44,7 @@ export const parseGetSuggestionsBody = (body: {
 export async function getSuggestions(
   videoId: string,
   options?: {
+    lang?: string;
     headers?: Record<string, string>;
   }
 ): Promise<MusicVideo[]> {
@@ -51,7 +52,7 @@ export async function getSuggestions(
     'https://music.youtube.com/youtubei/v1/next',
     {
       json: {
-        ...context.body,
+        ...context.body(options?.lang),
         enablePersistentPlaylistPanel: true,
         isAudioOnly: true,
         params: 'mgMDCNgE',

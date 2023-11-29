@@ -1,7 +1,7 @@
 {
-  "name": "node-youtube-music",
+  "name": "@heavyrisem/ytmusic",
   "description": "Unofficial YouTube Music API for Node.js",
-  "version": "0.10.3",
+  "version": "0.10.4",
   "exports": "./dist/index.js",
   "files": [
     "dist"

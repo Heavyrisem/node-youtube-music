@@ -4,9 +4,9 @@ import { MusicVideo } from './models.js';
 import { parseAlbumHeader, parseMusicInAlbumItem } from './parsers.js';
 
 export const parseListMusicsFromAlbumBody = (body: any): MusicVideo[] => {
-  const { contents } =
-    body.contents.singleColumnBrowseResultsRenderer.tabs[0].tabRenderer.content
-      .sectionListRenderer.contents[0].musicShelfRenderer;
+  const {
+    contents,
+  } = body.contents.singleColumnBrowseResultsRenderer.tabs[0].tabRenderer.content.sectionListRenderer.contents[0].musicShelfRenderer;
   const songs: MusicVideo[] = [];
   const { thumbnailUrl, artist, album } = parseAlbumHeader(body.header);
 
@@ -27,7 +27,8 @@ export const parseListMusicsFromAlbumBody = (body: any): MusicVideo[] => {
 };
 
 export async function listMusicsFromAlbum(
-  albumId: string
+  albumId: string,
+  options?: { headers?: Record<string, string> }
 ): Promise<MusicVideo[]> {
   const response = await got.post(
     'https://music.youtube.com/youtubei/v1/browse?alt=json&key=AIzaSyC9XL3ZjWddXya6X74dJoCTL-WEYFDNX30',
@@ -40,6 +41,7 @@ export async function listMusicsFromAlbum(
         'User-Agent':
           'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
         origin: 'https://music.youtube.com',
+        ...options?.headers,
       },
     }
   );

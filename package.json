@@ -7,7 +7,6 @@
     "dist"
   ],
   "types": "dist/index.d.ts",
-  "type": "module",
   "node": " >=14.13.1 || >=16.0.0",
   "repository": "https://github.com/baptisteArno/node-youtube-music",
   "publishConfig": {
@@ -22,7 +21,7 @@
     "generate-change-log": "git fetch --all && pnpx gitmoji-changelog"
   },
   "dependencies": {
-    "got": "^12.5.3"
+    "got": "11.8.6"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.50.0",

@@ -43,7 +43,10 @@ export const parseListMusicsFromPlaylistBody = (body: {
 };
 
 export async function listMusicsFromPlaylist(
-  playlistId: string
+  playlistId: string,
+  options?: {
+    headers?: Record<string, string>;
+  }
 ): Promise<MusicVideo[]> {
   let browseId;
 
@@ -63,6 +66,7 @@ export async function listMusicsFromPlaylist(
           'User-Agent':
             'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
           origin: 'https://music.youtube.com',
+          ...options?.headers,
         },
       }
     );

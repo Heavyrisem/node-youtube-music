@@ -7,14 +7,12 @@ export const parseSearchPlaylistsBody = (
   body: any,
   onlyOfficialPlaylists: boolean
 ): PlaylistPreview[] => {
-  const contents =
-    body.contents.tabbedSearchResultsRenderer.tabs[0].tabRenderer.content.sectionListRenderer.contents.pop()
-      .musicShelfRenderer?.contents;
+  const contents = body.contents.tabbedSearchResultsRenderer.tabs[0].tabRenderer.content.sectionListRenderer.contents.pop()
+    .musicShelfRenderer?.contents;
 
   if (!contents) {
     return [];
   }
-
 
   const results: PlaylistPreview[] = [];
 
@@ -35,6 +33,7 @@ export async function searchPlaylists(
   query: string,
   options?: {
     onlyOfficialPlaylists?: boolean;
+    headers?: Record<string, string>;
   }
 ): Promise<PlaylistPreview[]> {
   const response = await got.post(
@@ -49,6 +48,7 @@ export async function searchPlaylists(
         'User-Agent':
           'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
         origin: 'https://music.youtube.com',
+        ...options?.headers,
       },
     }
   );

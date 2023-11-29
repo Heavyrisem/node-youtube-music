@@ -6,8 +6,9 @@ import { parseArtistData } from './parsers.js';
 export async function getArtist(
   artistId: string,
   options?: {
-    lang: string;
-    country: string;
+    lang?: string;
+    country?: string;
+    headers?: Record<string, string>;
   }
 ): Promise<Artist> {
   const response = await got.post(
@@ -22,6 +23,7 @@ export async function getArtist(
           'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
         'Accept-Language': options?.lang ?? 'en',
         origin: 'https://music.youtube.com',
+        ...options?.headers,
       },
     }
   );

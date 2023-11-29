@@ -22,10 +22,9 @@ export const parseGetSuggestionsBody = (body: {
     };
   };
 }): MusicVideo[] => {
-  const { contents } =
-    body.contents.singleColumnMusicWatchNextResultsRenderer.tabbedRenderer
-      .watchNextTabbedResultsRenderer.tabs[0].tabRenderer.content
-      .musicQueueRenderer.content.playlistPanelRenderer;
+  const {
+    contents,
+  } = body.contents.singleColumnMusicWatchNextResultsRenderer.tabbedRenderer.watchNextTabbedResultsRenderer.tabs[0].tabRenderer.content.musicQueueRenderer.content.playlistPanelRenderer;
 
   const results: MusicVideo[] = [];
 
@@ -42,7 +41,12 @@ export const parseGetSuggestionsBody = (body: {
   return results;
 };
 
-export async function getSuggestions(videoId: string): Promise<MusicVideo[]> {
+export async function getSuggestions(
+  videoId: string,
+  options?: {
+    headers?: Record<string, string>;
+  }
+): Promise<MusicVideo[]> {
   const response = await got.post(
     'https://music.youtube.com/youtubei/v1/next',
     {
@@ -64,6 +68,7 @@ export async function getSuggestions(videoId: string): Promise<MusicVideo[]> {
         'User-Agent':
           'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
         origin: 'https://music.youtube.com',
+        ...options?.headers,
       },
     }
   );

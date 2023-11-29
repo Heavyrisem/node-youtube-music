@@ -4,9 +4,9 @@ import { ArtistPreview } from './models.js';
 import { parseArtistSearchResult } from './parsers.js';
 
 export const parseArtistsSearchBody = (body: any): ArtistPreview[] => {
-  const { contents } =
-    body.contents.tabbedSearchResultsRenderer.tabs[0].tabRenderer.content.sectionListRenderer.contents.pop()
-      .musicShelfRenderer;
+  const {
+    contents,
+  } = body.contents.tabbedSearchResultsRenderer.tabs[0].tabRenderer.content.sectionListRenderer.contents.pop().musicShelfRenderer;
   const results: ArtistPreview[] = [];
 
   contents.forEach((content: any) => {
@@ -27,6 +27,7 @@ export async function searchArtists(
   options?: {
     lang?: string;
     country?: string;
+    headers?: Record<string, string>;
   }
 ): Promise<ArtistPreview[]> {
   const response = await got.post(
@@ -42,6 +43,7 @@ export async function searchArtists(
           'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
         'Accept-Language': options?.lang ?? 'en',
         origin: 'https://music.youtube.com',
+        ...options?.headers,
       },
     }
   );
